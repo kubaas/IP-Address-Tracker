@@ -1,0 +1,78 @@
+// sizes
+$size_xs: 0.25rem; // 4px
+$size_s: 0.5rem; // 8px
+$size_m: 1rem; // 16px
+$size_l: 2rem; // 32px
+$size_xl: 4rem; // 64px
+
+// colors
+$blue: hsl(228, 45%, 44%);
+$grey_17: hsl(0, 0%, 17%);
+$grey_59: hsl(0, 0%, 59%);
+$white: #fff;
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Rubik', sans-serif;
+  font-size: 11px;
+  margin: 0;
+  text-align: center;
+}
+
+a {
+  color: $blue;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+.search-panel {
+  background-image: url("../images/pattern-bg.png");
+  display: flex;
+  flex-direction: column;
+  padding-top: $size_m + $size_s; // 24px
+
+  h2 {
+    font-weight: 700;
+  }
+
+  .search-address-input {
+    border-radius: 12px;
+    font-size: 18px;
+    margin: auto;
+    width: 5 *$size_xl; // 320px
+
+    &::placeholder {
+      font-size: 14px;
+      color: $grey_59;
+    }
+  }
+
+  .search-address-input-append {
+    background-color: $grey_17;
+    border-color: $grey_17;
+    border-radius: 0 12px 12px 0;
+    color: $white;
+    height: 41px;
+
+    &:hover {
+      background-color: $grey_59;
+      border-color: $grey_59;
+    }
+  }
+
+  .search-address-input-group {
+    align-self: center;
+    width: 6 *$size_xl; // 320px
+  }
+}
+
+.search-panel__white {
+  @extend .search-panel;
+
+  h2 {
+    color: $white;
+  }
+}
