@@ -1,43 +1,74 @@
+const API_KEY = 'at_X9jH5DZGpX7HsGe7WV5PAlsVTNcov';
+const GEOLOCATION_URL = `https://geo.ipify.org/api/v2/country,city?apiKey=${API_KEY}`;
+const GEOLOCATION_WITH_IP_URL = `${GEOLOCATION_URL}&ipAddress=`;
 
-const map = L.map('map').setView([51.505, -0.09], 13);
+const IP_REGEXP = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/;
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+const button = document.querySelector('.search-address-input-append');
+const form = document.querySelector('.search-address-input-group');
+const ipAddress = document.getElementById('ip-address');
+const location1 = document.getElementById('location');
+const timezone = document.getElementById('timezone');
+const isp = document.getElementById('isp');
 
-const marker = L.marker([51.5, -0.09]).addTo(map);
-const circle = L.circle([51.508, -0.11], {
-  color: 'red',
-  fillColor: '#f03',
-  fillOpacity: 0.5,
-  radius: 500
-}).addTo(map);
-const polygon = L.polygon([
-  [51.509, -0.08],
-  [51.503, -0.06],
-  [51.51, -0.047]
-]).addTo(map);
+const map = L.map('map');
+const marker = L.marker([0, 0]).addTo(map);
 
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-circle.bindPopup("I am a circle.");
-polygon.bindPopup("I am a polygon.");
+/** Event listeners */
+button.addEventListener('click', event => onSearchLocation(event));
+form.addEventListener('submit', event => onSearchLocation(event));
 
-function onMapClick(e) {
-  alert("You clicked the map at " + e.latlng);
+/** Main logic */
+getLocation().then((result) => showIpAddress(result));
+getCurrentPosition();
+
+function showIpAddress(result) {
+  ipAddress.innerHTML = result.ip + '';
+  location1.innerHTML = result.location.country + result.location.region + '';
+  timezone.innerHTML = result.location.timezone + '';
+  isp.innerHTML = result.isp + '';
 }
 
-map.on('click', onMapClick);
+function getCurrentPosition() {
+  if (!navigator.geolocation) return;
 
-
-const popup = L.popup();
-
-function onMapClick(e) {
-  popup
-    .setLatLng(e.latlng)
-    .setContent("You clicked the map at " + e.latlng.toString())
-    .openOn(map);
+  navigator.geolocation.getCurrentPosition(position => {
+    const { latitude, longitude } = position.coords;
+    setMapNewLocation(latitude, longitude, true);
+  });
 }
 
-map.on('click', onMapClick);
+function onSearchLocation(event) {
+  event.preventDefault();
+  const ip = document.querySelector('.search-address-input').value;
 
+  if (!ip) return;
+  if(!IP_REGEXP.test(ip)) { alert('Invalid IP address!'); return; }
+
+  getLocation(ip).then((result) => {
+    showIpAddress(result);
+    setMapNewLocation(result.location.lat, result.location.lng);
+  });
+}
+
+/** Geolocation API results */
+function getLocation(ipAddress) {
+  return fetch(ipAddress ? (GEOLOCATION_WITH_IP_URL + ipAddress) : GEOLOCATION_URL, { method: 'GET' })
+    .then((result) => result.json());
+}
+
+/** Leafletjs map */
+function setMapNewLocation(latitude, longitude, shouldShowPopup) {
+  const center = [latitude, longitude];
+  map.setView(center, 14);
+  marker.setLatLng(center);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+  showOrHidePopup(shouldShowPopup)
+}
+
+function showOrHidePopup(shouldShowPopup) {
+  shouldShowPopup ? marker.bindPopup(`<b>Here you are!</b>`).openPopup() : map.closePopup();
+}

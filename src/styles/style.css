@@ -17,9 +17,14 @@ h2 {
 
 .search-panel, .search-panel__white {
   background-image: url("../images/pattern-bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   padding-top: 1.5rem;
+  padding-bottom: 5.5rem;
+  width: 100%;
 }
 .search-panel h2, .search-panel__white h2 {
   font-weight: 700;
@@ -47,11 +52,49 @@ h2 {
 }
 .search-panel .search-address-input-group, .search-panel__white .search-address-input-group {
   align-self: center;
+  padding-top: 1rem;
   width: 24rem;
 }
 
 .search-panel__white h2 {
   color: #fff;
+}
+
+.search-result {
+  height: 120px;
+  width: 64rem;
+  align-self: center;
+  z-index: 401;
+  background-color: #fff;
+  bottom: 670px;
+  border-radius: 12px;
+  display: flex;
+  transform: translateY(50%);
+  position: absolute;
+  width: 50%;
+  bottom: 0;
+}
+.search-result .search-result-section {
+  display: flex;
+  flex: 25%;
+  flex-direction: column;
+  font-size: large;
+  font-weight: 700;
+}
+.search-result .search-result-section-text {
+  color: hsl(0deg, 0%, 59%);
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 32px;
+  padding-left: 16px;
+}
+.search-result .vr {
+  align-self: center;
+  height: 48px;
+}
+
+#map {
+  height: calc(100vh - 220px);
 }
 
 /*# sourceMappingURL=style.css.map */

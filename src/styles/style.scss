@@ -30,9 +30,14 @@ h2 {
 
 .search-panel {
   background-image: url("../images/pattern-bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   padding-top: $size_m + $size_s; // 24px
+  padding-bottom: 3 * $size_l - $size_s; // 88px
+  width: 100%;
 
   h2 {
     font-weight: 700;
@@ -65,6 +70,7 @@ h2 {
 
   .search-address-input-group {
     align-self: center;
+    padding-top: $size_m;
     width: 6 *$size_xl; // 320px
   }
 }
@@ -75,4 +81,44 @@ h2 {
   h2 {
     color: $white;
   }
+}
+
+.search-result {
+  height: 120px;
+  width: 16 * $size_xl;
+  align-self: center;
+  z-index: 401;
+  background-color: $white;
+  bottom: 670px;
+  border-radius: 12px;
+  display: flex;
+  transform: translateY(50%);
+  position: absolute;
+  width: 50%;
+  bottom: 0;
+
+  .search-result-section {
+    display: flex;
+    flex: 25%;
+    flex-direction: column;
+    font-size: large;
+    font-weight: 700;
+
+    &-text {
+      color: $grey_59;
+      font-size: 12px;
+      font-weight: 700;
+      padding-top: 32px;
+      padding-left: 16px;
+    }
+  }
+
+  .vr {
+    align-self: center;
+    height: 48px;
+  }
+}
+
+#map {
+  height: calc(100vh - 220px);
 }
