@@ -4,8 +4,8 @@
   "description": "![Design preview for the IP address tracker coding challenge](./design/desktop-preview.jpg)",
   "main": "index.js",
   "type": "module",
-  "module": "commonjs",
   "scripts": {
+    "lint": "eslint --ext .js --ext .scss --ext .html --fix",
     "test": "test"
   },
   "repository": {
@@ -20,5 +20,8 @@
   "homepage": "https://github.com/kubaas/IP-Address-Tracker#readme",
   "dependencies": {
     "leaflet": "^1.9.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.32.0"
   }
 }
