@@ -4,10 +4,10 @@ const GEOLOCATION_WITH_IP_URL = `${GEOLOCATION_URL}&ipAddress=`;
 
 const IP_REGEXP = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/;
 
-const button = document.querySelector('.search-address-input-append');
-const form = document.querySelector('.search-address-input-group');
+const button = document.querySelector('.search-panel__button');
+const form = document.querySelector('.search-panel__form');
 const ipAddress = document.getElementById('ip-address');
-const location1 = document.getElementById('location');
+const region = document.getElementById('location');
 const timezone = document.getElementById('timezone');
 const isp = document.getElementById('isp');
 
@@ -23,10 +23,10 @@ getLocation().then((result) => showIpAddress(result));
 getCurrentPosition();
 
 function showIpAddress(result) {
-  ipAddress.innerHTML = result.ip + '';
-  location1.innerHTML = result.location.country + result.location.region + '';
-  timezone.innerHTML = result.location.timezone + '';
-  isp.innerHTML = result.isp + '';
+  ipAddress.innerHTML = result.ip;
+  region.innerHTML = result.location.city + ', ' + result.location.country + ' ' + result.location.postalCode;
+  timezone.innerHTML = 'UTC ' + result.location.timezone;
+  isp.innerHTML = result.isp;
 }
 
 function getCurrentPosition() {
@@ -40,7 +40,7 @@ function getCurrentPosition() {
 
 function onSearchLocation(event) {
   event.preventDefault();
-  const ip = document.querySelector('.search-address-input').value;
+  const ip = document.querySelector('.search-panel__input').value;
 
   if (!ip) return;
   if(!IP_REGEXP.test(ip)) { alert('Invalid IP address!'); return; }

@@ -25,7 +25,7 @@ a {
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .search-panel {
@@ -43,7 +43,7 @@ h2 {
     font-weight: 700;
   }
 
-  .search-address-input {
+  .search-panel__input {
     border-radius: 12px;
     font-size: 18px;
     margin: auto;
@@ -55,7 +55,7 @@ h2 {
     }
   }
 
-  .search-address-input-append {
+  .search-panel__button {
     background-color: $grey_17;
     border-color: $grey_17;
     border-radius: 0 12px 12px 0;
@@ -68,14 +68,14 @@ h2 {
     }
   }
 
-  .search-address-input-group {
+  .search-panel__form {
     align-self: center;
     padding-top: $size_m;
     width: 6 *$size_xl; // 320px
   }
 }
 
-.search-panel__white {
+.search-panel--white {
   @extend .search-panel;
 
   h2 {
@@ -84,7 +84,7 @@ h2 {
 }
 
 .search-result {
-  height: 120px;
+  height: 150px;
   width: 16 * $size_xl;
   align-self: center;
   z-index: 401;
@@ -92,33 +92,68 @@ h2 {
   bottom: 670px;
   border-radius: 12px;
   display: flex;
+  max-width: 1100px;
   transform: translateY(50%);
+  padding: 20px;
   position: absolute;
-  width: 50%;
+  width: 80%;
   bottom: 0;
 
   .search-result-section {
-    display: flex;
-    flex: 25%;
-    flex-direction: column;
-    font-size: large;
-    font-weight: 700;
+    flex: 1;
+    justify-content: center;
+    margin: 8px 0;
+    padding: 8px;
 
     &-text {
+      display: flex;
       color: $grey_59;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
-      padding-top: 32px;
-      padding-left: 16px;
+      justify-content: center;
+      text-transform: uppercase;
+    }
+
+    &-value {
+      display: flex;
+      font-size: large;
+      font-weight: 700;
+      justify-content: center;
     }
   }
 
   .vr {
     align-self: center;
-    height: 48px;
+    height: 64px;
   }
 }
 
 #map {
-  height: calc(100vh - 220px);
+  height: calc(100vh - 219px);
+}
+
+@media screen and (max-width: 765px) {
+
+  #map {
+    height: calc(100vh - 320px);
+  }
+
+  .search-result {
+    height: 320px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+
+    .search-result-section {
+      padding: 0;
+    }
+  }
+
+  .vr {
+    display:none
+  }
+
+  .search-panel {
+    height: 320px;
+  }
 }

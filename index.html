@@ -20,13 +20,13 @@
 
   <body>
     <header style="position: relative; display: flex; justify-content: center;">
-      <section class="search-panel__white">
+      <section class="search-panel--white">
         <h2>IP Address Tracker</h2>
-        <form class="input-group mb-3 search-address-input-group">
-          <input class="form-control search-address-input" type="text"
+        <form class="input-group mb-3 search-panel__form">
+          <input class="form-control search-panel__input" type="text"
             placeholder="Search for any IP address or domain" />
           <div class="input-group-append">
-            <button class="btn btn-primary search-address-input-append">
+            <button class="btn btn-primary search-panel__button">
               <img src="src/images/icon-arrow.svg" alt="icon arrow" />
             </button>
           </div>
@@ -35,22 +35,22 @@
       <section class="search-result">
         <div class="search-result-section">
           <span class="search-result-section-text">IP Address</span>
-          <div id="ip-address"></div>
+          <span class="search-result-section-value" id="ip-address"></span>
         </div>
         <div class="vr"></div>
         <div class="search-result-section">
           <span class="search-result-section-text">Location</span>
-          <span id="location"></span>
+          <span class="search-result-section-value" id="location"></span>
         </div>
         <div class="vr"></div>
         <div class="search-result-section">
           <span class="search-result-section-text">Timezone UTC</span>
-          <span id="timezone"></span>
+          <span class="search-result-section-value" id="timezone"></span>
         </div>
         <div class="vr"></div>
         <div class="search-result-section">
           <span class="search-result-section-text">ISP</span>
-          <span id="isp"></span>
+          <span class="search-result-section-value" id="isp"></span>
         </div>
       </section>
     </header>
