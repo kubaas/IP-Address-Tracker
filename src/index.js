@@ -32,7 +32,8 @@ button.addEventListener('click', event => onSearchLocation(event));
 form.addEventListener('submit', event => onSearchLocation(event));
 
 /** Main logic */
-getLocation().then((result) => showIpAddress(result));
+let initialResults;
+getLocation().then((result) => { showIpAddress(result); initialResults = result; });
 getCurrentPosition();
 
 function showIpAddress(result) {
@@ -48,6 +49,12 @@ function getCurrentPosition() {
   navigator.geolocation.getCurrentPosition(position => {
     const { latitude, longitude } = position.coords;
     setMapNewLocation(latitude, longitude, true);
+  }, () => {
+    if (initialResults) {
+      setMapNewLocation(initialResults.location.lat, initialResults.location.lng);
+    } else {
+      getLocation().then((result) => setMapNewLocation(result.location.lat, result.location.lng));
+    }
   });
 }
 
