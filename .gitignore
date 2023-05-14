@@ -14,6 +14,8 @@
 # Avoid your project being littered with annoying .DS_Store files!
 .DS_Store
 
+dist
+
 /package-lock.json
 /node_modules
 /.idea
